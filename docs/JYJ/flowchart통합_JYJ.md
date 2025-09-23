@@ -12,11 +12,11 @@ flowchart TD
     LIST_DATA_CHK -->|False| LIST_NO_DATA[/"저장된 데이터가 없습니다<br/>메시지 화면 출력"/]
     LIST_NO_DATA --> MENU
     LIST_DATA_CHK -->|True| LIST_DISPLAY[/"회원 저장된 데이터 목록 출력<br/>추가 순서대로 순번,이름,전화번호,관계,주소<br/>총 회원 데이터 개수 표시"/]
-    LIST_DISPLAY --> LIST_EXIT_MSG[/"메뉴로 나가겠습니까?<br/>메시지 화면 출력"/]
-    LIST_EXIT_MSG --> LIST_EXIT_INPUT[/선택 입력<br/>1.예 2.아니오/]
-    LIST_EXIT_INPUT --> LIST_EXIT_CHOICE{1 or 2?}
-    LIST_EXIT_CHOICE -->|1| MENU
-    LIST_EXIT_CHOICE -->|2| LIST_DISPLAY
+    LIST_DISPLAY --> LIST_EXIT_MSG[/"메뉴로 나가겠습니까?<br/>메시지 화면 표시"/]
+    LIST_EXIT_MSG --> LIST_EXIT_INPUT[/선택 입력<br/>예 아니오/]
+    LIST_EXIT_INPUT --> LIST_EXIT_CHOICE{예 or 아니오?}
+    LIST_EXIT_CHOICE -->|예| MENU
+    LIST_EXIT_CHOICE -->|아니오| LIST_DISPLAY
     
     %% 2. 회원 추가
     SELECT -->|2| ADD_NAME[/이름 입력<br/>나가기 입력시 메뉴 나가기/]
@@ -121,12 +121,12 @@ flowchart TD
     DEL_SELECT --> DEL_NUM_CHK{번호<br/>유효?}
     DEL_NUM_CHK -->|False| DEL_SELECT
     
-    DEL_NUM_CHK -->|True| DEL_CONFIRM[/"삭제 확인 메시지 화면 표시<br/>1삭제 2취소"/]
+    DEL_NUM_CHK -->|True| DEL_CONFIRM[/"삭제 확인 메시지 화면 표시<br/>삭제 취소"/]
     DEL_CONFIRM --> DEL_INPUT[/선택 입력/]
-    DEL_INPUT --> DEL_CHOICE{1 or 2?}
+    DEL_INPUT --> DEL_CHOICE{삭제 or 취소?}
     
-    DEL_CHOICE -->|2| MENU
-    DEL_CHOICE -->|1| DEL_EXECUTE[회원 데이터 삭제]
+    DEL_CHOICE -->|취소| MENU
+    DEL_CHOICE -->|삭제| DEL_EXECUTE[회원 데이터 삭제]
     DEL_EXECUTE --> DEL_COMPLETE[/"삭제완료<br/>메시지 화면 표시"/]
     DEL_COMPLETE --> MENU
     
