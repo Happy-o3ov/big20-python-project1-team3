@@ -8,8 +8,8 @@
 - 윤여림 ()
 - 엄재민 ()
 - 이경주 (KJ.Lee, july1003@gmail.com)
-- 임명혁 ()
-- 조윤재 ()
+- 임명혁 (
+- 조윤재 (YJ.Cho, mondaykiz489@gmail.com)
 
 ## 🏗️ 디렉토리 구조
 /big20-python-project1-team3 : project root (main)
