@@ -18,6 +18,3 @@
  - data : data file 위치
  - notbooks : .ipynb 노트북 파일 위치
  - tests : 테스트 파일 위치 (필요하다면 사용)
-
-
-
