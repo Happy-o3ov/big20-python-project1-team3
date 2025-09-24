@@ -1,7 +1,7 @@
 # 사용자 추가
 
 ```mermaid
-flowchart TD 
+flowchart TD
 
     %% 추가할 사용자 정보입력, 유효성검사
     add_message[추가할 사용자 정보 입력]
@@ -16,8 +16,8 @@ flowchart TD
 
     add_message --> add_input
     add_input --> check_add_input
-    check_add_input -->|No| add_fail
-    check_add_input -->|Yes| add_success
+    check_add_input -->|실패| add_fail
+    check_add_input -->|성공| add_success
     add_fail --> return_menu
     add_success --> save_file
     add_success --> return_menu

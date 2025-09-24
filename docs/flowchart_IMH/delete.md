@@ -1,7 +1,7 @@
 ## 사용자 삭제
 
 ```mermaid
-flowchart TD 
+flowchart TD
     %%사용자 검색
     search_delete_message[수정할 사용자 이름 검색]
     search_name@{ shape: manual-input, label: "이름 입력"}
@@ -12,7 +12,7 @@ flowchart TD
     %%사용자 선택
     select_delete_message@{ shape: manual-input, label: "수정할 사용자번호 입력"}
     check_select_input{번호 검사}
-    failed_select[유효하지 않은 번호입니다<br>메뉴로 이동]
+    select_fail[유효하지 않은 번호입니다<br>메뉴로 이동]
 
     %%사용자 삭제
     delete_message[해당 사용자 삭제 확인]
@@ -25,16 +25,16 @@ flowchart TD
 
     search_delete_message --> search_name
     search_name --> check_search_name
-    check_search_name --> |No| search_fail --> return_menu
-    check_search_name --> |Yes| search_success
+    check_search_name --> |성공| search_fail --> return_menu
+    check_search_name --> |실패| search_success
     search_success --> select_delete_message
     select_delete_message --> check_select_input
-    check_select_input --> |No| failed_select --> return_menu
-    check_select_input --> |Yes| delete_message
+    check_select_input --> |선택번호 없음| select_fail --> return_menu
+    check_select_input --> |선택번호 존재| delete_message
     delete_message --> delete_input
     delete_input --> check_delete_input
-    check_delete_input --> |input != 1| delete_fail -->return_menu
-    check_delete_input --> |input == 1| delete_success -->return_menu
+    check_delete_input --> |선택번호 없음| delete_fail -->return_menu
+    check_delete_input --> |선택번호 존재| delete_success -->return_menu
     delete_success --> save_file
 
 
