@@ -3,9 +3,11 @@
 graph TD
     %% 프로그램 시작 및 메뉴
     start([프로그램 시작]) --> readFile@{ shape: lin-cyl, label: "회원관리 파일 읽기"};
-    readFile --> MainMenu@{ shape: doc, label: "Main Menu 출력"};
-    MainMenu --> MenuNo@{ shape: manual-input, label: "메뉴번호 입력받기" }
-    MenuNo --> MenuNoValidation{입력값=?}
+    readFile --> MainMenu
+    subgraph MainMenu    
+        MainMenu@{ shape: doc, label: "Main Menu 출력"} --> MenuNo@{ shape: manual-input, label: "메뉴번호 입력받기(1~5)" }
+        MenuNo --> MenuNoValidation{입력값=?}
+    end        
     MenuNoValidation -- 1 입력시 --> List@{ shape: div-rect, label: "1.회원 목록 출력 처리"};
     MenuNoValidation -- 2 입력시 --> Add@{ shape: div-rect, label: "2.회원 신규등록 처리"};
     MenuNoValidation -- 3 입력시 --> Update@{ shape: div-rect, label: "3.회원 수정 처리"};
