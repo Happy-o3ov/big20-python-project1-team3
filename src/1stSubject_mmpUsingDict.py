@@ -13,9 +13,9 @@ DATA_FILE = './data/members.dat'
 # 에러 메시지 상수 정의
 ERROR_MESSAGES = {
     "name_empty": "이름 오류: 이름을 입력해야 합니다.",
-    "name_format": "이름 오류: 이름은 한글 또는 영문 1자 이상 5자 이하로 입력해야 합니다.",
+    "name_format": "이름 오류: 이름은 한글 또는 영문 포함 1자이상  5자 이하로 입력해야 합니다.",
     "phone_empty": "전화번호 오류: 전화번호를 입력해야 합니다.",
-    "phone_format": "전화번호 오류: '000-0000-0000' 형식으로 입력해야 합니다.",
+    "phone_format": "전화번호 오류: '010-0000-0000' 형식으로 입력해야 합니다.",
     "relation_empty": "관계 오류: 관계를 입력해야 합니다.",
     "relation_format": "관계 오류: 1, 2, 3 중 하나를 선택해야 합니다.",
     "address_empty": "주소 오류: 주소를 입력해야 합니다.",
@@ -124,7 +124,7 @@ class MemberManager:
             print("* 표시된 항목은 반드시 입력하셔야 합니다.")
 
             # 이름 입력
-            name = input("이름*: ")
+            name = input("이름*: 한글 알파벳 포함 5자까지")
             if not name:
                 print(ERROR_MESSAGES["name_empty"])
                 continue
@@ -133,7 +133,7 @@ class MemberManager:
                 continue
 
             # 전화번호 입력
-            phone = input("전화번호*: ")
+            phone = input("전화번호*: 010-000-0000 형식으로 숫자와 - 만 사용하세요")
             if not phone:
                 print(ERROR_MESSAGES["phone_empty"])
                 continue
