@@ -1,7 +1,7 @@
 ## 회원 관리 프로그램 플로우차트  : 회원정보 수정 3.2.1 수정 프로세스
 ```mermaid
 graph LR
-  style inputViewNum fill:#FFCC00,stroke:#999,stroke-width:2px,color:#000 
+  %% style inputViewNum fill:#FFCC00,stroke:#999,stroke-width:2px,color:#000 
   UpdateAItem([ 3.2.1 회원 정보 수정 프로세스 시작 ]) 
     UpdateAItem --> searchResultList@{ shape: doc, label: "검색 결과 목록 출력 <br> 번호 | 이름 | 전화번호 | 관계 " }  
     searchResultList --> inputViewNum@{ shape: sl-rect, label: "수정할 번호 입력 혹은 <br>'<' Main Menu로 돌아가기"};
