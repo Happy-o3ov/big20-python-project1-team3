@@ -1,8 +1,9 @@
-# 회원 관리 프로그램 플로우차트 START
+# 회원 관리 프로그램 플로우차트 
+### 회원관리의 PK 는 전화번호 : Not Null, Unique
 ```mermaid
 graph TD
     %% 프로그램 시작 및 메뉴
-    start([프로그램 시작]) --> readFile@{ shape: lin-cyl, label: "회원관리 파일 읽기"};
+    start([프로그램 시작]) --> readFile@{ shape: lin-cyl, label: "회원관리 파일 읽기 <br> ../data/member.dat (rb)"};
     readFile --> MainMenu
     subgraph MainMenu    
         MainMenu@{ shape: doc, label: "Main Menu 출력"} --> MenuNo@{ shape: manual-input, label: "메뉴번호 입력받기(1~5)" }
