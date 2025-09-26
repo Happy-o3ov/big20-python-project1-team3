@@ -114,3 +114,4 @@ class MemberView:
         출력
         """
         print(message)
+        
