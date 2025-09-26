@@ -6,7 +6,7 @@
 
 ## 🧑‍💻 팀원
 - 윤여림 (YR,Yoon, hario3ov@gmail.com)
-- 엄재민 ()
+- 엄재민 (jm.eom, um.jm1020@gmail.com)
 - 이경주 (KJ.Lee, july1003@gmail.com)
 - 임명혁 (
 - 조윤재 (YJ.Cho, mondaykiz489@gmail.com)
