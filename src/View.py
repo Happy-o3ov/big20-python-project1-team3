@@ -44,12 +44,23 @@ class MemberView:
         이름 값 입력받기
         선택한 메뉴의 기능에따라 입력받을 값 선택
         Args:
-            action (str, optional): 입력받은 이름. Defaults to "조회".
+            action (str, optional): 옵션. Defaults to "조회".
 
         Returns:
             (String): 입력받을 값 출력
         """
         return input(f"{action}할 회원 이름: ").strip()
+
+    def input_phone(self, action="삭제"):
+        """
+        전화번호값 입력받기
+        Args:
+            action (str, optional): 옵션. Defaults to "삭제".
+
+        Returns:
+            _type_: _description_
+        """
+        return input(f'{action}할 회원 전화번호: ').strip()
 
     def input_index(self, action="선택"):
         """

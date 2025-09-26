@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 import re
 
-DATA_FILE = "data\members.dat"
+DATA_FILE = "../data/members.dat"
 VALID_TYPES = ["가족", "친구", "기타"]
 
 class MemberModel:
@@ -94,8 +94,7 @@ class MemberModel:
         """
         멤버값 업데이트
         Args:
-            name (String): 입력받은 이름
-            index (int): 입력받은 업데이트 할 멤버
+            phone (String): 입력받은 번호
             new_info (dictionary): 업데이트 할 정보
         """
         self.data[phone] = new_info
@@ -105,7 +104,6 @@ class MemberModel:
         정보 삭제
         Args:
             phone (String): 입력받은 번호
-            index (int): 입력받은 삭제 할 멤버
         """
         if phone in self.data:
             del self.data[phone]
