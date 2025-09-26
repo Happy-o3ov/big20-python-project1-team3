@@ -107,7 +107,7 @@ class MemberModel:
         """
         if phone in self.data:
             del self.data[phone]
-            
+     
     def get_all_members(self):
         """
         모든 데이터 가져오기
