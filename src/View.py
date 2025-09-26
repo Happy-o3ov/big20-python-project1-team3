@@ -83,7 +83,7 @@ class MemberView:
             print("등록된 회원이 없습니다.")
         else:
             for i, (phone, info) in enumerate(data.items(), 1):
-                print(f"[{i}] 이름: {info['name']}, 전화번호: {phone}, 주소: {info['address']}, 종류: {info['type']}")
+                print(f"[{i}] 이름: {info['name']}, 전화번호: {phone}, 주소: {info['address']}, 종류: {info['relationShip']}")
     def show_message(self, message):
         """
         출력
