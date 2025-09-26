@@ -49,8 +49,8 @@ class MemberView:
             print("이름은 최대 10글자까지 입력 가능합니다.")
             name = name[:10]
         address = input("주소 (선택): ").strip()
-        type_ = input("종류 (가족/친구/기타): ").strip()
-        return {"name": name, "address": address, "type": type_}
+        relationShip = input("종류 (가족/친구/기타): ").strip()
+        return {"name": name, "address": address, "relationShip": relationShip}
 
 
     def input_name(self, action="조회"):
