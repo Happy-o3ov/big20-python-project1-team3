@@ -40,17 +40,15 @@ class MemberController:
                     continue
                 self.view.show_members(members)
                 idx = self.view.input_index("수정")
-                if idx < 0 or idx >= len(members):
+                phone_list = list(members.keys())
+                if idx < 0 or idx >= len(phone_list):
                     self.view.show_message("잘못된 번호입니다.")
                     continue
-                phone = list(members.keys())[idx]
-                new_info = self.view.input_member_info()
+                phone = phone_list[idx]
+                new_info = self.view.input_member_update_info()
+                new_info["phone"] = phone
                 if not self.model.is_valid(new_info):
                     self.view.show_message("입력값이 유효하지 않습니다.")
-                    continue
-                if self.model.is_phone_duplicate(new_info["phone"]) and new_info["phone"] != phone:
-
-                    self.view.show_message("이미 등록된 전화번호입니다.")
                     continue
                 self.model.update_member(phone, new_info)
                 self.view.show_message("회원 정보가 수정되었습니다.")

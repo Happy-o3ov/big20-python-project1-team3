@@ -38,6 +38,20 @@ class MemberView:
         relationShip = input("종류 (가족/친구/기타): ").strip()
         return  {"name": name, "phone": phone, "address": address, "relationShip": relationShip}
 
+    def input_member_update_info(self):
+        """
+        전화번호 제외한 수정 정보 입력
+        Returns:
+            (dictionary) : 입력받은 멤버 값
+        """
+        name = input("이름 (최대 10글자): ").strip()
+        if len(name) > 10:
+            print("이름은 최대 10글자까지 입력 가능합니다.")
+            name = name[:10]
+        address = input("주소 (선택): ").strip()
+        type_ = input("종류 (가족/친구/기타): ").strip()
+        return {"name": name, "address": address, "type": type_}
+
 
     def input_name(self, action="조회"):
         """
