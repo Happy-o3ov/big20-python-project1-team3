@@ -1,4 +1,5 @@
 import pickle
+from datetime import datetime
 import os
 
 DATA_FILE = "data\members.dat"
@@ -69,7 +70,8 @@ class MemberModel:
         self.data[info["phone"]] = {
             "name": info["name"],
             "address": info["address"],
-            "relationShip": info["relationShip"]
+            "relationShip": info["relationShip"],
+            "regDate": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
 
 
