@@ -58,37 +58,32 @@ class MemberModel:
         Returns:
             (Boolean): 입력받은 전화번호가 파일안의 전화번호와 중복된 값
         """
-        for members in self.data.values():
-            for member in members:
-                if member["phone"] == phone:
-                    return True
-        return False
+        return phone in self.data
 
-    def insert_member(self, name, info):
+    def insert_member(self, info):
         """
         정보 입력
         Args:
-            name (Sring): 입력받은 이름
             info (dictionary): 입력받은 정보
         """
-        if name not in self.data:
-            self.data[name] = []
-        self.data[name].append(info)
+        self.data[info["phone"]] = {
+            "name": info["name"],
+            "address": info["address"],
+            "type": info["type"]
+        }
 
-    def get_members(self, name=None):
+
+    def get_members(self, name):
         """
-        name을 키값으로 이름이 있으면 딕셔너리에 정보를 리스트로 저장
-        없으면 딕셔너리에 저장
+        멤버값 반환
         Args:
-            name (String): 입력된 이름
+
         Returns:
             data (dictionary)
         """
-        if name:
-            return self.data.get(name, [])
-        return self.data
+        return {phone: info for phone, info in self.data.items() if info["name"] == name}
 
-    def update_member(self, name, index, new_info):
+    def update_member(self, phone, new_info):
         """
         멤버값 업데이트
         Args:
@@ -96,15 +91,16 @@ class MemberModel:
             index (int): 입력받은 업데이트 할 멤버
             new_info (dictionary): 업데이트 할 정보
         """
-        self.data[name][index] = new_info
+        self.data[phone] = new_info
 
-    def delete_member(self, name, index):
+    def delete_member(self, phone):
         """
         정보 삭제
         Args:
-            name (String): 입력받은 이름
+            phone (String): 입력받은 이름
             index (int): 입력받은 삭제 할 멤버
         """
-        del self.data[name][index]
-        if not self.data[name]:
-            del self.data[name]
+        if phone in self.data:
+            del self.data[phone]
+    def get_all_members(self):
+        return self.data

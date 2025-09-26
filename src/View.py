@@ -36,7 +36,8 @@ class MemberView:
         phone = input("전화번호: ").strip()
         address = input("주소 (선택): ").strip()
         type_ = input("종류 (가족/친구/기타): ").strip()
-        return name, {"phone": phone, "address": address, "type": type_}
+        return  {"name": name, "phone": phone, "address": address, "type": type_}
+
 
     def input_name(self, action="조회"):
         """
@@ -81,10 +82,8 @@ class MemberView:
         if not data:
             print("등록된 회원이 없습니다.")
         else:
-            for name, members in data.items():
-                for i, info in enumerate(members, 1):
-                    print(f"[{i}] 이름: {name}, 전화번호: {info['phone']}, 주소: {info['address']}, 종류: {info['type']}")
-
+            for i, (phone, info) in enumerate(data.items(), 1):
+                print(f"[{i}] 이름: {info['name']}, 전화번호: {phone}, 주소: {info['address']}, 종류: {info['type']}")
     def show_message(self, message):
         """
         출력
