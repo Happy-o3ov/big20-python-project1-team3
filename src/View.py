@@ -35,8 +35,8 @@ class MemberView:
         name = input("이름: ").strip()
         phone = input("전화번호: ").strip()
         address = input("주소 (선택): ").strip()
-        type_ = input("종류 (가족/친구/기타): ").strip()
-        return  {"name": name, "phone": phone, "address": address, "type": type_}
+        relationShip = input("종류 (가족/친구/기타): ").strip()
+        return  {"name": name, "phone": phone, "address": address, "relationShip": relationShip}
 
 
     def input_name(self, action="조회"):

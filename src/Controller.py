@@ -12,13 +12,7 @@ class MemberController:
     def run(self):
         """
         전체 프로그램의 동작을 실행
-        선택한 메뉴의 기능을 실행하도록 함
-        
-        args:
-            info (dict): 멤버 데이터 
-            name (string): 멤버 이름
-        return:
-            
+        선택한 메뉴의 기능을 실행하도록 함         
         """
         while True:
             self.view.show_menu()
@@ -28,7 +22,7 @@ class MemberController:
                 self.view.show_members(self.model.get_all_members())
 
             elif choice == 2:
-                name, info = self.view.input_member_info()
+                info = self.view.input_member_info()
                 if not self.model.is_valid(info):
                     self.view.show_message("입력값이 유효하지 않습니다.")
                     continue

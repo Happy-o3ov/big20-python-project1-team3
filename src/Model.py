@@ -47,7 +47,7 @@ class MemberModel:
         Returns:
             (boolean): 데이터안에 전화번호와 VALID_TYPES에 포함된 값
         """
-        return info["phone"] and info["type"] in VALID_TYPES
+        return info["phone"] and info["relationShip"] in VALID_TYPES
 
     def is_phone_duplicate(self, phone):
         """
@@ -69,13 +69,13 @@ class MemberModel:
         self.data[info["phone"]] = {
             "name": info["name"],
             "address": info["address"],
-            "type": info["type"]
+            "relationShip": info["relationShip"]
         }
 
 
     def get_members(self, name):
         """
-        멤버값 반환
+        이름으로 멤버값 반환
         Args:
 
         Returns:
@@ -97,10 +97,16 @@ class MemberModel:
         """
         정보 삭제
         Args:
-            phone (String): 입력받은 이름
+            phone (String): 입력받은 번호
             index (int): 입력받은 삭제 할 멤버
         """
         if phone in self.data:
             del self.data[phone]
+            
     def get_all_members(self):
+        """
+        모든 데이터 가져오기
+        Returns:
+            (dictionary): 데이터
+        """
         return self.data
