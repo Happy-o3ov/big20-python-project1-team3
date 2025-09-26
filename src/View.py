@@ -35,6 +35,8 @@ class MemberView:
         name = input("이름: ").strip()
         phone = input("전화번호: ").strip()
         address = input("주소 (선택): ").strip()
+        if not address:
+            address = "-"
         relationShip = input("종류 (가족/친구/기타): ").strip()
         return  {"name": name, "phone": phone, "address": address, "relationShip": relationShip}
 
@@ -49,8 +51,15 @@ class MemberView:
             print("이름은 최대 10글자까지 입력 가능합니다.")
             name = name[:10]
         address = input("주소 (선택): ").strip()
+<<<<<<< HEAD
         relationShip = input("종류 (가족/친구/기타): ").strip()
         return {"name": name, "address": address, "relationShip": relationShip}
+=======
+        if not address:
+            address = "-"
+        type_ = input("종류 (가족/친구/기타): ").strip()
+        return {"name": name, "address": address, "type": type_}
+>>>>>>> 22b152d1052a9a596eda690d248afb1946fa891b
 
 
     def input_name(self, action="조회"):
@@ -114,3 +123,4 @@ class MemberView:
         출력
         """
         print(message)
+        
