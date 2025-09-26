@@ -1,14 +1,9 @@
-from model import MemberModel
-from view import MemberView
+from Model import MemberModel
+from View import MemberView
 
 class MemberController:
     """
     전체 프로그램의 동작을 담당하는 클래스
-    
-    args:
-    
-    return:
-     
     """
     def __init__(self):
         self.model = MemberModel()
@@ -17,11 +12,13 @@ class MemberController:
     def run(self):
         """
         전체 프로그램의 동작을 실행
+        선택한 메뉴의 기능을 실행하도록 함
         
         args:
             info (dict): 멤버 데이터 
             name (string): 멤버 이름
         return:
+            
         """
         while True:
             self.view.show_menu()
