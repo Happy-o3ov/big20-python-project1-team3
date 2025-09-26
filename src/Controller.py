@@ -38,7 +38,7 @@ class MemberController:
                 if not members:
                     self.view.show_message("회원을 찾을 수 없습니다.")
                     continue
-                self.view.show_members({members})
+                self.view.show_members(members)
                 idx = self.view.input_index("수정")
                 if idx < 0 or idx >= len(members):
                     self.view.show_message("잘못된 번호입니다.")
@@ -61,7 +61,7 @@ class MemberController:
                 if not members:
                     self.view.show_message("회원을 찾을 수 없습니다.")
                     continue
-                self.view.show_members({members})
+                self.view.show_members(members)
                 idx = self.view.input_index("삭제")
                 if idx < 0 or idx >= len(members):
                     self.view.show_message("잘못된 번호입니다.")

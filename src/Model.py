@@ -1,6 +1,7 @@
 import pickle
 from datetime import datetime
 import os
+import re
 
 DATA_FILE = "data\members.dat"
 VALID_TYPES = ["가족", "친구", "기타"]
@@ -48,7 +49,11 @@ class MemberModel:
         Returns:
             (boolean): 데이터안에 전화번호와 VALID_TYPES에 포함된 값
         """
-        return info["phone"] and info["relationShip"] in VALID_TYPES
+        phone_pattern = r"010-\d{4}-\d{4}$"
+        return (
+            re.match(phone_pattern, info['phone'])is not None and
+            info["relationShip"] in VALID_TYPES
+        )
 
     def is_phone_duplicate(self, phone):
         """
