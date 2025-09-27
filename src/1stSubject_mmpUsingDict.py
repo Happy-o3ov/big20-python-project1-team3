@@ -267,11 +267,14 @@ def main():
         if choice == '1':
             manager.list_members()
         elif choice == '2':
-            manager.add_member()
+            # manager.add_member()
+            pass
         elif choice == '3':
-            manager.update_member()
+            # manager.update_member()
+            pass 
         elif choice == '4':
-            manager.remove_member()
+            # manager.remove_member()
+            pass 
         elif choice == '5':
             confirm = input(ERROR_MESSAGES["exit_confirm"])
             if confirm == '1':
