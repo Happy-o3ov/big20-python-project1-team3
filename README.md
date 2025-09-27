@@ -26,8 +26,8 @@
 4. 주소 : 안 넣으면 default - 출력하고 입력한 경우 한영숫자 포함 100자 이내
    * 표시는 필수 입력 항목 임
 
-### data형식
-# 샘플 데이터 생성
+### 샘플 데이터 
+``` text
 sampleData = {
     "010-2274-8999": {
         'name': '이경주',
@@ -48,3 +48,4 @@ sampleData = {
         'regDate': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
 }
+```
