@@ -178,7 +178,7 @@ class MemberManager:
         print(MESSAGES['mainMenu'])             # 메인 메뉴 텍스트 출력 
         # time.sleep(1.5)                             # 메뉴 출력 후 잠시 term을 줌 for ipynb test용
         return input(MESSAGES['inputMenuNo'])   # 메뉴번호 입력 받고 리턴
-
+    # [start func : print_member_list() ] -------------------------------------------------------
     def print_member_list(self, members):
         """회원 목록 출력"""
 
@@ -301,7 +301,7 @@ class MemberManager:
       while True:
         placeholder = " ('1':가족, '2':친구, '3':기타 1,2,3 중 하나를 입력하세요.)"
         if relation: # 기 등록 관계값이 있는 경우
-           placeholder = "현재 관계 : {relation} "
+           placeholder = "현재 관계 : {RELATION_MAP[relation]} "
         print(f"\n ⌨️ {placeholder}")
         relation = input("👪 관계* : ")
         if not relation: # 입력값이 없는 경우 에러 메세지 출력
@@ -409,8 +409,7 @@ class MemberManager:
             for phone, info in self.members.items()
             if keyword in phone or keyword in info['name'] # 전화번호 혹은 이름에서 키워드가 있는지
         }
-      
-    
+          
     # [star func: search_condition() ] ---------------------------------------------------------    
     def search_condition(self)->bool:       
        ''' 검색어 입력받아 있으면 목록 출력하고 없으면 no data 출력하기 
@@ -438,10 +437,8 @@ class MemberManager:
       
        # 검색어가 있는 경우 검색 목록 출력하기 
        self.print_member_list(self.search_results)   
-
        return False # 다음 계속 진행 하기 
        
-
     # [start func : update_member ] -----------------------------------------------------------------------------------
     def update_member(self, menu_no):
         """검색 키워드를 입력받아 목록 조회 후 수정 회원 번호 선택하여 해당 회원 정보 수정하기
@@ -505,7 +502,7 @@ class MemberManager:
         print(f"{'\n📞 전화번호':<12}: {phone} (전화번호는 변경할 수 없습니다.)")
         # 이름, 관계, 주소 유효한 값만 입력 받기
         new_name = self.input_name(member['name'])
-        new_relation = self.input_relation(RELATION_MAP[member['relation']])
+        new_relation = self.input_relation(member['relation'])
         new_address = self.input_address(member['address'])
 
         # 정상적으로 입력 받았으면 정보 수정하기
@@ -554,7 +551,7 @@ class MemberManager:
                     if del_yn.lower() == 'y': # 삭제하기                   
                         phone2del, member = self.search_results[selected_num - 1] # 출력시 1부터 시작했으니 -1 해주기                                     
                         # 삭제 저장하고 메세지 출력하기 
-                        del self.members[member.phone2del]
+                        del self.members[phone2del]
                         self.save_members()
 
                         # 다음 액션 받기
@@ -588,26 +585,22 @@ def main():
         inputed_mno = manager.display_main_menu() # 입력받은 메뉴 번호 확인하기 
         if inputed_mno == '1':
             manager.list_members(inputed_mno)            
-
         elif inputed_mno == '2':
             manager.add_member(inputed_mno)
-
         elif inputed_mno == '3':
             manager.update_member(inputed_mno)
-
         elif inputed_mno == '4':
             manager.remove_member(inputed_mno)
-
         elif inputed_mno == '5':
              # print(MESSAGES['exit_confirm'] + " 상단 입력란에 입력하세요.") # for ipynb testing
              # confirm = input(MESSAGES["exit_confirm"]) # 종료 확인 여부 입력 받기
-             confirm = '1' # for  the test
-             if confirm == '1': # 최종 종료 선택
+             confirm = 'y' # for  the test
+             if confirm.lower() == 'y': # 최종 종료 선택
                 manager.save_members()
                 print("프로그램을 종료합니다.............")
                 return
         else:
-            self.print_error("invalid_input")                
+            manager.print_error("invalid_input")                
 # [end func : main() ] -----------------------------------------------------------------------------------
 
 if __name__ == "__main__":
