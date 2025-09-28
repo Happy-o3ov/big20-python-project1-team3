@@ -1,6 +1,6 @@
 ## 회원 관리 프로그램 플로우차트  : 회원정보 수정
 ```mermaid
-graph TD
+graph LR
     %% 3.회원 수정 처리
    Update(3.회원 수정 처리 시작) --> searchCondition
    subgraph searchCondition
@@ -13,7 +13,7 @@ graph TD
       validationSearchKeyword -- True --> searching[저장된 목록에서 검색];
       searching --> searchCount{ 검색결과 길이 > 0 ? }
       searchCount -- False --> printNoSearch@{ shape: doc, label: "검색된 목록이 없습니다."};
-      printNoSearch --> inputAction@{ shape: sl-rect, label: "'<'.Main Menu로 돌아가기 <br> 'a' 다시 검색하기 "}
+      printNoSearch --> inputAction@{ shape: sl-rect, label: "'<'.Main Menu로 돌아가기 <br> 'r' 다시 검색하기 "}
       inputAction -- 'a' 입력시 --> inputSearchKeyword
       inputAction -- '<' 입력시 --> Menu((Main Menu))
       inputAction -- 그외 입력시 --> errorInputPrint2@{ shape: doc, label: "잘못 입력하셨습니다. <br> 다시 입력하세요"};
@@ -37,7 +37,7 @@ graph TD
     %% duplJudge -- False --> updateInfo@{ shape: lin-cyl, label: "회원 정보 수정 저장" };
       validationItems -- True --> updateInfo@{ shape: lin-cyl, label: "회원 정보 수정 저장" };
       updateInfo --> printSaved@{ shape: doc, label: "수정 저장 완료 메시지 출력"};
-      printSaved --> subMenu@{ shape: sl-rect, label: "'<' Main Menu으로 돌아가기 <br>'c' 수정 계속"};
+      printSaved --> subMenu@{ shape: sl-rect, label: "'<' Main Menu으로 돌아가기 <br>'e' 수정 계속"};
       subMenu -- '<' 입력시 --> MainMenu((Main Menu 출력));
       subMenu -- 'c' 입력시 --> Update
       subMenu -- 그외 --> errorInputPrint3;

@@ -1,4 +1,4 @@
-## 회원 관리 프로그램 플로우차트  : 회원정보 삭제 3.2.1 삭제 프로세스
+## 회원 관리 프로그램 플로우차트  : 회원정보 삭제 4.2.1 삭제 프로세스
 ```mermaid
 graph LR
   %% style inputViewNum fill:#FFCC00,stroke:#999,stroke-width:2px,color:#000 
