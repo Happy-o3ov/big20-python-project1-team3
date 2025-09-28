@@ -60,14 +60,12 @@ class MemberController:
                     self.view.show_message("회원을 찾을 수 없습니다.")
                     continue
                 self.view.show_members(members)
-                phone = self.view.input_phone("삭제")
-                if phone not in members:
-                    self.view.show_message("입력한 전화번호가 해당 이름과 일치하지 않습니다")
-                    continue
                 idx = self.view.input_index("삭제")
-                if idx < 0 or idx >= len(members):
+                phone_list = list(members.keys())
+                if idx < 0 or idx >= len(phone_list):
                     self.view.show_message("잘못된 번호입니다.")
                     continue
+                phone = phone_list[idx]
                 if self.view.confirm("정말로 삭제하시겠습니까?"):
                     self.model.delete_member(phone)
                     self.view.show_message("회원 정보가 삭제되었습니다.")
