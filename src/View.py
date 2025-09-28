@@ -155,7 +155,14 @@ class MemberView:
         else:
             for i, (phone, info) in enumerate(data.items(), 1): # 읽은 데이터값을 순서대로 반환
                 relationship_str = TYPE_MAP.get(info["relationShip"],"알수없음")
-                print(f"[{i}] 이름: {info['name']}, 전화번호: {phone}, 주소: {info['address']}, 종류: {relationship_str}")
+                print(f"\n📋 [{i}] 회원 정보")
+                print("──────────────────────────────")
+                print(f"👤 이름       : {info['name']}")
+                print(f"📞 전화번호   : {phone}")
+                print(f"🏠 주소       : {info['address']}")
+                print(f"🧩 종류       : {relationship_str}")
+                print("──────────────────────────────")
+
             
     def show_message(self, message):
         """
