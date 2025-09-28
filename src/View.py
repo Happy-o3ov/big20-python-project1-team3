@@ -1,9 +1,16 @@
+import re
 class MemberView:
     """
     출력관리
     return:
         message(string): 출력 할 메시지 출력
     """
+    relationship_MAP = {
+            1:"가족",
+            2:"친구",
+            3:"기타"
+        }
+    
     def show_menu(self):
         """
         메뉴 출력
@@ -32,13 +39,30 @@ class MemberView:
         Returns:
             (dictionary) : 입력받은 멤버값
         """
-        name = input("이름: ").strip()
+        while True: # 유효성 체크
+            name = input("이름(한글/영어, 최대10글자): ").strip()
+            if not re.match(r'^[가-힣a-zA-Z]&{1,10}',name):
+                print("이름은 10글자 까지 입력가능하며, 최대 10글자 입니다")
+                continue
+            break
         phone = input("전화번호: ").strip()
         address = input("주소 (선택): ").strip()
         if not address:
             address = "-"
-        relationShip = input("종류 (가족/친구/기타): ").strip()
-        return  {"name": name, "phone": phone, "address": address, "relationShip": relationShip}
+        while True: # 유효성 체크
+            try:
+                relationShip = input("종류 (1:가족, 2:친구, 3:기타): ").strip()
+                if relationShip in [1,2,3]:
+                    break
+                else:
+                    print("1,2,3 중 하나를 입력하세요.")
+            except ValueError:
+                print("숫자만 입력하세요")
+        return  {"name": name,
+                 "phone": phone,
+                 "address": address,
+                 "relationShip": relationShip
+        }
 
     def input_member_update_info(self):
         """
@@ -46,15 +70,25 @@ class MemberView:
         Returns:
             (dictionary) : 입력받은 멤버 값
         """
-        name = input("이름 (최대 10글자): ").strip()
-        if len(name) > 10:
-            print("이름은 최대 10글자까지 입력 가능합니다.")
-            name = name[:10]
+        while True:
+            name = input("이름 (최대 10글자): ").strip()
+            if not re.match(r'^[가-힣a-zA-z]${1,10}',name): # 유효성 검사
+                print("이름은 한글 또는 영문만 입력 가능하며, 최대 10글자까지입니다.")
+                continue
+            break
         address = input("주소 (선택): ").strip()
-        if len(address) > 100:
+        if len(address) > 100: # 유효성 검사
             print("주소는 최대 100글자까지 입력 가능합니다")
             address = address[:100]
-        relationShip = input("종류 (가족/친구/기타): ").strip()
+        while True: # 유효성 검사
+            try:
+                relationShip = input("종류 (1:가족, 2:친구, 3:기타): ").strip()
+                if relationShip in [1,2,3]:
+                    break
+                else:
+                    print("1,2,3 중 하나를 입력하세요.")
+            except ValueError:
+                print("숫자만 입력하세요")
         return {"name": name, "address": address, "relationShip": relationShip}
 
 
@@ -108,12 +142,21 @@ class MemberView:
         멤버 출력
         Args:
             data (dictionary): 출력 할 데이터 중복이 있을경우 리스트 형태로 출력
+        Returns:
+            (str): 데이터를 받아 출력
         """
+        TYPE_MAP = {
+            1:"가족",
+            2:"친구",
+            3:"기타"
+        }
         if not data:
             print("등록된 회원이 없습니다.")
         else:
-            for i, (phone, info) in enumerate(data.items(), 1):
-                print(f"[{i}] 이름: {info['name']}, 전화번호: {phone}, 주소: {info['address']}, 종류: {info['relationShip']}")
+            for i, (phone, info) in enumerate(data.items(), 1): # 읽은 데이터값을 순서대로 반환
+                relationship_str = TYPE_MAP.get(info["relationShip"],"알수없음")
+                print(f"[{i}] 이름: {info['name']}, 전화번호: {phone}, 주소: {info['address']}, 종류: {relationship_str}")
+            
     def show_message(self, message):
         """
         출력

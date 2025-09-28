@@ -4,7 +4,6 @@ import os
 import re
 
 DATA_FILE = "../data/members.dat"
-VALID_TYPES = ["가족", "친구", "기타"]
 
 class MemberModel:
     """
@@ -52,7 +51,7 @@ class MemberModel:
         phone_pattern = r"010-\d{4}-\d{4}$"
         return (
             re.match(phone_pattern, info['phone'])is not None and
-            info["relationShip"] in VALID_TYPES
+            info["relationShip"] in [1,2,3]
         )
 
     def is_phone_duplicate(self, phone):
@@ -107,7 +106,7 @@ class MemberModel:
         """
         if phone in self.data:
             del self.data[phone]
-     
+
     def get_all_members(self):
         """
         모든 데이터 가져오기

@@ -17,10 +17,10 @@ class MemberController:
         while True:
             self.view.show_menu()
             choice = self.view.get_menu_choice()
-
+            # 1.show_members : 멤버 목록을 출력 
             if choice == 1:
                 self.view.show_members(self.model.get_all_members())
-
+            # 2.input_member_info : 멤버를 추가 입력값은 (이름(str: 한/영))
             elif choice == 2:
                 info = self.view.input_member_info()
                 if not self.model.is_valid(info):
