@@ -98,8 +98,8 @@ RELATION_MAP = {'1': '❤️ 가족', '2': '👪 친구', '3': '🌐 기타'}
 class Member:
     """개별 회원 데이터를 담는 클래스 선언. """
     def __init__(self) :
-      self.member = {}
-      self.search_results = {}
+      self.member = {} # 한명 저장용
+      self.search_results = {} # 검색 결과 저장용
 
     def add_member_info(self, phone, name, relation, address) -> None:
       ''' 한명의 회원 정보를 phone 을 키로 해서 dict로 저장하기 '''
@@ -122,38 +122,37 @@ class MemberManager:
 
     def print_bar(self, style_str:str="=", repeat_cnt:int=50)->None:
         '''styleStr를 입력받아 repeat_cnt번 출력하는 함수
-        param: styleStr 출력할 문자
+        param: style_str 출력할 문자
                repeat_cnt : 반복할 횟수 로 10보다 크고 100보다 작아야 함
         유효성 검사를 통과하지 않으면 try exception하지 않고 그냥 기본값(= 50번) 출력
         return : None
         '''
         # repeat_cnt를 입력받았을때 정수형이고 100보다 작은 경우 
-        if isinstance(repeat_cnt, int) and 10 < repeat_cnt <= 100:
+        if isinstance(repeat_cnt, int) and (10 < repeat_cnt <= 100):
             print(style_str * repeat_cnt)
         else: # 그렇지 않을때 기본값 출력
             print("=" * 50)
 
-    def print_menu_title(self, menu_no)->str:
-        ''' 메뉴 타이틀 출력하기 '''
-        if  menu_no in MENU_TITLES : # 메뉴번호가 1 ~ 5이면
+    def print_menu_title(self, menu_no)->None:
+        ''' 메뉴 타이틀 출력하기 유효하지 않을 때 아무것도 출력하지 않음'''
+        if  menu_no in MENU_TITLES : # 입력받은 번호나 param값이 메뉴타이틀 키 값에 잇으면
             print()  # 빈줄 한 줄 출력
             title_len = 60 # 60칸 
             self.print_bar('=', title_len) # 총 길이만큰 줄 출력
             print(f"{MENU_TITLES[menu_no]:^{title_len}}") # 메뉴 타이틀 중앙에 위치
             self.print_bar('=', title_len) # 총 길이만큰 줄 출력
-            print()
+            print() # 한줄 띄우기 
 
     def print_error(self, msg_name:str)->None:
         ''' error message 출력하기 '''
         message = ERROR_MESSAGES.get(msg_name)
 
         self.print_bar("~")
-        if message:
+        if message: # message에 값이 있으면 출력
             print(f"{message}")
-        else:
+        else: # 없으면 알수 없는 에러코드 출력
             print(f"⚠️ 알 수 없는 에러 코드: '{msg_name}'")
         self.print_bar("~")
-
         return None
 
     def load_members(self):
