@@ -42,7 +42,7 @@ class MemberView:
         while True: # 유효성 체크
             name = input("이름(한글/영어, 최대5글자): ").strip()
             if not re.match(r'^[가-힣a-zA-Z]{1,5}$',name):
-                print("이름은 10글자 까지 입력가능하며, 최대 5글자 입니다")
+                print("이름은 5글자 까지 입력가능하며, 최대 5글자 입니다")
                 continue
             break
         phone = input("전화번호: ").strip()
@@ -71,7 +71,7 @@ class MemberView:
             (dictionary) : 입력받은 멤버 값
         """
         while True:
-            name = input("이름 (최대 10글자): ").strip()
+            name = input("이름 (최대 5글자): ").strip()
             if not re.match(r'^[가-힣a-zA-z]{1,5}$',name): # 유효성 검사
                 print("이름은 한글 또는 영문만 입력 가능하며, 최대 5글자까지입니다.")
                 continue
