@@ -41,7 +41,7 @@ class MemberView:
         """
         while True: # 유효성 체크
             name = input("이름(한글/영어, 최대10글자): ").strip()
-            if not re.match(r'^[가-힣a-zA-Z]&{1,10}',name):
+            if not re.match(r'^[가-힣a-zA-Z]{1,10}$',name):
                 print("이름은 10글자 까지 입력가능하며, 최대 10글자 입니다")
                 continue
             break
@@ -51,7 +51,7 @@ class MemberView:
             address = "-"
         while True: # 유효성 체크
             try:
-                relationShip = input("종류 (1:가족, 2:친구, 3:기타): ").strip()
+                relationShip = int(input("종류 (1:가족, 2:친구, 3:기타): ").strip())
                 if relationShip in [1,2,3]:
                     break
                 else:
@@ -72,7 +72,7 @@ class MemberView:
         """
         while True:
             name = input("이름 (최대 10글자): ").strip()
-            if not re.match(r'^[가-힣a-zA-z]${1,10}',name): # 유효성 검사
+            if not re.match(r'^[가-힣a-zA-z]{1,10}$',name): # 유효성 검사
                 print("이름은 한글 또는 영문만 입력 가능하며, 최대 10글자까지입니다.")
                 continue
             break
@@ -82,7 +82,7 @@ class MemberView:
             address = address[:100]
         while True: # 유효성 검사
             try:
-                relationShip = input("종류 (1:가족, 2:친구, 3:기타): ").strip()
+                relationShip = int(input("종류 (1:가족, 2:친구, 3:기타): ").strip())
                 if relationShip in [1,2,3]:
                     break
                 else:
