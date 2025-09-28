@@ -461,40 +461,34 @@ class MemberManager:
               action_no = input(MESSAGES['inputNumber4EditOrBack2Menu']).strip()
               if action_no.lower() == Command.RETURN_TO_MAIN.value: 
                   return
-              if action_no not in self.search_results:
-                self.print_error("invalid_input")
-                continue
-            # // 수정번호 유효성 검사 끝 
-
-            # 수정 번호 받은 경우 
-            try:                
-              # action_no 를 숫자로 변경
-              selected_num = int(action_no) 
-              # 입력받은 번호가 출력한 번호 안에 있는지 확인하기
-              if 1 <= selected_num <= len(self.search_results): # 출력한 범위안에 있으면
-                phone, member = self.search_results[selected_num - 1] # 출력시 1부터 시작했으니 -1 해주기 
-                # 항목 입력 받고 저장하기 
-                ret_value = self.edit_info(phone, member)
-                if ret_value : # 저장 성공시 
-                    # 다음 액션 받기
-                    while True: 
-                      action = input(MESSAGES['actionAfterAddOK']).strip() # 입력 받고 공백제거
-                      if action.lower() == Command.RETURN_TO_MAIN.value: # < 입력받은 경우
-                          return
-                      elif action_no.lower() == Command.EDIT_AGAIN.value : # 다시 수정하기 선택시 
-                          break
-                      else:  # '<', 'e' 둘다 선택하지 않은 경우 에러 메세지 출력받고 다시 입력받기
-                        self.print_error("invalid_input")
-                        continue  # action를 다시 입력받기
-                    # // 다음 액션 받기 끝 
-                else: # 에러 발생시 
-                    return
-                
-              else: # 출력하지 않은 번호 입력시 에러 출력
-                self.print_error('invalid_number')
-                continue
-
-            except ValueError: # 숫자가 아닌 경우
+              # 수정 번호 받은 경우 
+              try:
+                  # action_no 를 숫자로 변경
+                  selected_num = int(action_no) 
+                  # 입력받은 번호가 출력한 번호 안에 있는지 확인하기
+                  if 1 <= selected_num <= len(self.search_results): # 출력한 범위안에 있으면
+                      phone, member = self.search_results[selected_num - 1] # 출력시 1부터 시작했으니 -1 해주기 
+                      # 항목 입력 받고 저장하기 
+                      ret_value = self.edit_info(phone, member)
+                      if ret_value : # 저장 성공시 
+                        # 다음 액션 받기
+                        while True: 
+                            action = input(MESSAGES['actionAfterAddOK']).strip() # 입력 받고 공백제거
+                            if action.lower() == Command.RETURN_TO_MAIN.value: # '<' 입력받아 메인 메뉴로 
+                                return
+                            elif action_no.lower() == Command.EDIT_AGAIN.value : # 다시 수정하기 선택시 
+                                break
+                            else:  # '<', 'e' 둘다 선택하지 않은 경우 에러 메세지 출력받고 다시 입력받기
+                                self.print_error("invalid_input")
+                                continue  # action를 다시 입력받기
+                        # // 다음 액션 받기 끝 
+                      else: # 에러 발생시 
+                        return
+                  # 출력하지 않은 번호 입력시 에러 출력
+                  else: 
+                    self.print_error('invalid_number')
+                    continue
+              except ValueError: # 숫자가 아닌 경우
                 self.print_error('input_num_only')
                 continue
     # [end func: update_member ] -----------------------------------------------------------------------------------
@@ -547,10 +541,8 @@ class MemberManager:
             while True:
               action_no = input(MESSAGES['inputNumber4DelOrBack2Menu']).strip()
               if action_no.lower() == Command.RETURN_TO_MAIN.value: # 메인 메뉴로 돌아가기 선택한 경우
-                  return
-                
+                  return                
               
-              # self.print_error("invalid_input")                          
               try:
                 # action_no 를 숫자로 변경
                 selected_num = int(action_no) # 여기서 문자 받으면 try 로 잡아냄..
