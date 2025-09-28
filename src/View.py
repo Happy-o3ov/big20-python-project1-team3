@@ -51,6 +51,9 @@ class MemberView:
             print("이름은 최대 10글자까지 입력 가능합니다.")
             name = name[:10]
         address = input("주소 (선택): ").strip()
+        if len(address) > 100:
+            print("주소는 최대 100글자까지 입력 가능합니다")
+            address = address[:100]
         relationShip = input("종류 (가족/친구/기타): ").strip()
         return {"name": name, "address": address, "relationShip": relationShip}
 
