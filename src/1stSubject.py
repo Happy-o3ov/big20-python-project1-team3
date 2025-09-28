@@ -202,7 +202,7 @@ class MemberManager:
         param : 상세 조회할 회원 members의 index 번호
         """
         # 조회 순번 유효성 검사 
-        print(f"202 : view_no = {view_no}")
+        # print(f"202 : view_no = {view_no}") # debugging code 
         if view_no < 0 or view_no >= len(self.members):
             self.print_error("invalid_input") # 잘못입력했습니다~ 
             return
@@ -839,7 +839,7 @@ class MemberManager:
         param : 상세 조회할 회원 members의 index 번호
         """
         # 조회 순번 유효성 검사 
-        print(f"202 : view_no = {view_no}")
+        # print(f"202 : view_no = {view_no}") # debugging code
         if view_no < 0 or view_no >= len(self.members):
             self.print_error("invalid_input") # 잘못입력했습니다~ 
             return
