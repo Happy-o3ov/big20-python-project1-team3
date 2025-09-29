@@ -20,7 +20,8 @@ class MemberController:
             # 1.show_members : 멤버 목록을 출력 
             if choice == 1:
                 self.view.show_members(self.model.get_all_members())
-            # 2.input_member_info : 멤버를 추가 입력값은 (이름(str: 한/영, 5글자))
+            # 2.input_member_info : 멤버를 추가 입력값은 (이름(str: 한/영, 5글자)
+            # ,전화번호(str: 010-0000-0000),주소(str: NONE= -),관계(int: 1~3))
             elif choice == 2:
                 info = self.view.input_member_info()
                 if not self.model.is_valid(info):
@@ -31,7 +32,8 @@ class MemberController:
                     continue
                 self.model.insert_member(info)
                 self.view.show_message("회원 정보가 추가되었습니다.")
-
+            # 3.update_member : 멤버 정보 수정 입력값은 (이름(str: 한/영, 5글자))
+            # ,전화번호(str: 010-0000-0000),주소(str: NONE= -),관계(int: 1~3))
             elif choice == 3:
                 name = self.view.input_name("수정")
                 members = self.model.get_members(name)
@@ -52,7 +54,7 @@ class MemberController:
                     continue
                 self.model.update_member(phone, new_info)
                 self.view.show_message("회원 정보가 수정되었습니다.")
-
+            # 4.delete_member : 멤버 삭제 입력값은(이름(str: 한/영, 5글자) 인덱스번호(int))
             elif choice == 4:
                 name = self.view.input_name("삭제")
                 members = self.model.get_members(name)
@@ -69,7 +71,7 @@ class MemberController:
                 if self.view.confirm("정말로 삭제하시겠습니까?"):
                     self.model.delete_member(phone)
                     self.view.show_message("회원 정보가 삭제되었습니다.")
-
+            # 5.exit : 파일저장 및 프로그램 종료
             elif choice == 5:
                 if self.view.confirm("정말로 종료하시겠습니까?"):
                     if self.model.save_data():
