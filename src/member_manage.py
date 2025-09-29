@@ -385,7 +385,7 @@ def set_member_menu(members:Members) -> bool:
     while True:
         # 수정할 정보 선택
         list_member(searched_dict)                          # 검색된 목록 출력
-        select_num = input_member('수정할 사용자 정보 선택 (메뉴돌아가기[<]) : ')
+        select_num = input_member('수정할 사용자 번호(No.) 입력 (메뉴돌아가기[<]) : ')
         if select_num is None:
             return False
         count = 0
@@ -488,7 +488,7 @@ def del_member_menu(members: Members) -> bool:
     while True:
         # 삭제할 정보 선택
         list_member(searched_dict)                          # 검색된 목록 출력
-        select_num = input_member('삭제할 사용자 정보 선택 (메뉴돌아가기[<]) : ')
+        select_num = input_member('삭제할 사용자 번호(No.) 입력 (메뉴돌아가기[<]) : ')
         if select_num is None:
             return False
         count = 0
