@@ -468,7 +468,7 @@ def set_member_menu(members:Members) -> bool:
 
     return True
 
-def del_member_menu(members: Members) ->:
+def del_member_menu(members: Members) -> bool:
     """
     사용자 삭제 메뉴
     
@@ -535,10 +535,10 @@ def main():
         # 연락처 추가
         elif input_number == '2':
             while True:
-                if add_member_menu(member_dict)
-                cont = input("\n다른 연락처도 추가하시겠습니까? (확인:y 취소:any key): ")
-                if cont != 'y':
-                    break
+                if add_member_menu(member_dict):
+                    cont = input("\n다른 연락처도 추가하시겠습니까? (확인:y 취소:any key): ")
+                    if cont != 'y':
+                        break
 
         # 연락처 수정
         elif input_number == '3':
