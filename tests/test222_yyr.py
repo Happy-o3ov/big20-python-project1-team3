@@ -22,7 +22,7 @@ def save_file():
 
 # --- 유효성 검사 ---
 def valid_name(name):
-    return 1 <= len(name) <= 5 and name.isalnum()
+    return 1 <= len(name) <= 5 and name.isalnum() # 이름 1글자 이상 ~ 5글자 이내
 
 def valid_phone(phone):
     return re.match(r"^010-\d{4}-\d{4}$", phone) is not None
