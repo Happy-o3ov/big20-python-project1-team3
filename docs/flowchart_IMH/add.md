@@ -4,7 +4,6 @@
 flowchart TD
 
     %% 추가할 사용자 정보입력, 유효성검사
-    add_message[추가할 사용자 정보 입력]
     add_input@{ shape: manual-input, label: "추가할 사용자<br>정보 입력"}
     check_add_input{유효성검사}
 
@@ -14,7 +13,6 @@ flowchart TD
     save_file[(회원 데이터 파일 저장)]
     return_menu[메인으로 이동]
 
-    add_message --> add_input
     add_input --> check_add_input
     check_add_input -->|실패| add_fail
     check_add_input -->|성공| add_success
