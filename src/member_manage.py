@@ -315,7 +315,7 @@ def input_member(prompt: str, check_func = None, empty_pass = False):
         except (ValueError, KeyError) as e:     # 잘못된 입력 시 메시지 출력 후 재실행
             print(e)
 
-def add_member_menu(members: Members) -> None:
+def add_member_menu(members: Members) -> bool:
     """
     사용자 추가 메뉴
     
@@ -328,24 +328,24 @@ def add_member_menu(members: Members) -> None:
         check_func = regular_name_check
     )
     if add_name is None:                        # [<] 입력시 종료
-        return
+        return False
 
     add_num = input_member(                     # 전화번호 입력, 유효성검사 (검사: regular_num_check)
         '번호 입력: 010-0000-0000 (메뉴돌아가기[<]) : ',
         check_func=regular_num_check
     )
     if add_num is None:                         # [<] 입력시 종료
-        return
+        return False
     if add_num in members.member_dict.keys():   # 전화번호 중복검사
         print("이미 추가되어 있는 번호입니다.")
-        return
+        return True
 
     add_rel = input_member(                     # 관계 입력, 유효성검사 (검사: lel_check)
         '관계 입력 선택(1.가족 2.친구 3.기타) (메뉴돌아가기[<]) : ',
         check_func=lel_check
     )
     if add_rel is None:                         # [<] 입력시 종료
-        return
+        return False
 
     add_address = input_member(
         '주소 입력 (100자 이내, 생략 가능, 메뉴돌아가기[<]) : ',
@@ -353,15 +353,16 @@ def add_member_menu(members: Members) -> None:
         empty_pass = True
     )
     if add_address is None:
-        return
+        return False
     if add_address == "":
         add_address = ""
 
     members.add(add_num,add_name,add_rel,add_address)       # 입력받은 정보 추가
     print("\n추가 완료!")
     list_member({add_num: {'name': add_name, 'relation': add_rel, 'address': add_address}})
+    return True
 
-def set_member_menu(members:Members):
+def set_member_menu(members:Members) -> bool:
     """
     사용자 수정 메뉴
     
@@ -373,7 +374,7 @@ def set_member_menu(members:Members):
         # 번호입력, [<] : 종료
         search = input_member('수정할 사용자 이름/전화번호 검색, (메뉴돌아가기[<1]) : ')
         if search is None:
-            return
+            return False
         try:
             searched_dict = members.search_member(search)       # 사용자 검색
             break
@@ -386,7 +387,7 @@ def set_member_menu(members:Members):
         list_member(searched_dict)                          # 검색된 목록 출력
         select_num = input_member('수정할 사용자 정보 선택 (메뉴돌아가기[<]) : ')
         if select_num is None:
-            return
+            return False
         count = 0
 
         # 번호에 해당하는 정보 저장
@@ -412,7 +413,7 @@ def set_member_menu(members:Members):
         empty_pass=True
     )
     if new_name is None:
-        return
+        return False
     if new_name == "":
         new_name = old_name
 
@@ -424,7 +425,7 @@ def set_member_menu(members:Members):
             empty_pass = True
         )
         if new_num is None:
-            return
+            return False
         if new_num == "":
             new_num = old_num
             break
@@ -443,7 +444,7 @@ def set_member_menu(members:Members):
         empty_pass = True
     )
     if new_rel is None:
-        return
+        return False
     if new_rel == "":
         new_rel = old_rel
 
@@ -453,7 +454,7 @@ def set_member_menu(members:Members):
         empty_pass = True
     )
     if new_address is None:
-        return
+        return False
     if new_address == "":
         new_address = old_address
 
@@ -465,7 +466,9 @@ def set_member_menu(members:Members):
     except (ValueError, KeyError) as e:
         print(e)
 
-def del_member_menu(members: Members):
+    return True
+
+def del_member_menu(members: Members) ->:
     """
     사용자 삭제 메뉴
     
@@ -475,7 +478,7 @@ def del_member_menu(members: Members):
         # 번호입력, [<] : 종료
         search = input_member('삭제할 사용자 이름/전화번호 검색, (메뉴돌아가기[<]) : ')
         if search is None:
-            return
+            return False
         try:
             searched_dict = members.search_member(search)       # 사용자 검색
             break
@@ -487,7 +490,7 @@ def del_member_menu(members: Members):
         list_member(searched_dict)                          # 검색된 목록 출력
         select_num = input_member('삭제할 사용자 정보 선택 (메뉴돌아가기[<]) : ')
         if select_num is None:
-            return
+            return False
         count = 0
         deleted_data = None
         # 번호에 해당하는 정보 저장
@@ -506,6 +509,7 @@ def del_member_menu(members: Members):
             break
         print(f'해당하는 번호(1~{count})를 입력해주세요')
 
+    return True
 
 
 def main():
@@ -531,7 +535,7 @@ def main():
         # 연락처 추가
         elif input_number == '2':
             while True:
-                add_member_menu(member_dict)
+                if add_member_menu(member_dict)
                 cont = input("\n다른 연락처도 추가하시겠습니까? (확인:y 취소:any key): ")
                 if cont != 'y':
                     break

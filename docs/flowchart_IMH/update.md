@@ -1,14 +1,13 @@
 # 사용자 업데이트(수정)
 
 ```mermaid
-flowchart TD
+flowchart 
 
     %%사용자 검색
-    search_update_message[수정할 사용자 이름 검색]
-    search_name@{ shape: manual-input, label: "이름 입력"}
-    check_search_name{이름 유효성 검사}
-    search_fail[해당 이름이 없습니다<br>메뉴로 돌아갑니다]
-    search_success[검색된 사용자 정보 출력]
+    update_search_name@{ shape: manual-input, label: "수정할 사용자 검색"}
+    check_update_search_name{이름/전화번호 부분일치 확인}
+    update_search_fail[해당하는 사용자를<br>찾을 수 없습니다]
+    update_search_success[검색된 사용자 출력]
 
     %%사용자 선택
     select@{ shape: manual-input, label: "수정할 사용자번호 입력"}
