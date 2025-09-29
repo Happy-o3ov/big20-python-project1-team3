@@ -527,7 +527,6 @@ def main():
     while True:
         show_menu()
         input_number = input('1~5 버튼입력: ')
-        print('입력한 값: ', input_number)
 
         # 연락처 목록
         if input_number == '1':
