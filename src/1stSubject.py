@@ -112,7 +112,7 @@ class Member:
 # //End Of Class - Member
             
 
-# [start class : MemberManager] ----------------------------------------------------------------- #
+# [start class : MemberManager] --------- #
 class MemberManager:
     """회원 전체를 관리하는 클래스 (딕셔너리 기반)"""
     def __init__(self, data_file):
