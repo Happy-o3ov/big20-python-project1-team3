@@ -8,13 +8,9 @@
 - 윤여림 (YR,Yoon, hario3ov@gmail.com)
 - 엄재민 (jm.eom, um.jm1020@gmail.com)
 - 이경주 (KJ.Lee, july1003@gmail.com)
-<<<<<<< HEAD
-- 임명혁 (
 - 조윤재 (42ㅈmondaykiz489@gmail.com)
-=======
 - 임명혁 (MH.Im , idmh1111@gmail.com)
 - 조윤재 (YJ.Cho, mondaykiz489@gmail.com)
->>>>>>> 946aef2053ace5105a45f66cfe24b484b90a1303
 
 ## 🏗️ 디렉토리 구조
 /big20-python-project1-team3 : project root (main)
