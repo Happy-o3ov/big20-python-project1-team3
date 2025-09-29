@@ -251,6 +251,11 @@ def list_member(members: dict) -> None:
     dict = {전화번호 : {'name':'사용자이름', 'relation':'관계}}
     한글 간격 조절
     """
+    if not members:
+        print('저장된 사용자가 없습니다.')
+        input_member('[<]버튼을 눌러 종료')
+        return
+    
     print(f"{'No.'}| {'이름':<8} | {'전화번호':<11} | {'관계':<3} | {'주소'}")
     print("-" * 80)
     list_number = 0
