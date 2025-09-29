@@ -116,7 +116,8 @@ class Members:
 
     def del_member(self,phone_num: str) -> dict:
         """ 멤버정보 삭제, 반환(pop)"""
-        return self.member_dict.pop(phone_num)
+        if phone_num in self.member_dict.keys():
+            return self.member_dict.pop(phone_num)
 
 
     def search_member(self,input_str: str) -> dict:
