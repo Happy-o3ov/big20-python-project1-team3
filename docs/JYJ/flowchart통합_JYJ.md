@@ -133,9 +133,9 @@ flowchart TD
     %% 5. 종료
     SELECT -->|5| EXIT_CONFIRM[/"종료 확인 메시지 화면 표시<br/>1예 2아니오"/]
     EXIT_CONFIRM --> EXIT_INPUT[/선택 입력/]
-    EXIT_INPUT --> EXIT_CHOICE{1 or 2?}
-    EXIT_CHOICE -->|2| MENU
-    EXIT_CHOICE -->|1| SAVE_FILE[목록을 파일에 저장]
+    EXIT_INPUT --> EXIT_CHOICE{예 or 아니오}
+    EXIT_CHOICE -->|아니오| MENU
+    EXIT_CHOICE -->|예| SAVE_FILE[목록을 파일에 저장]
     SAVE_FILE --> END([프로그램 종료])
     
     %% 잘못된 메뉴 입력
