@@ -369,3 +369,79 @@ WHERE oi1.ORDER_id = 587
  ORDER BY PAIR_COUNT DESC, Book1, Book2
  FETCH FIRST 10 ROWS WITH TIES
  ;
+
+-- 12\. **휴면 가능성 VIP 고객\- 총구매액 : 500,000 이상, 6개월 이상 구매 안한 고객 조회** 
+-- customer_name, last_order_date(최종 주문일), lifetime_spent(총구매금액)  
+/*
+ * 조회 항목: customer_name, last_order_date(최종 주문일), lifetime_spent(총구매금액)
+ * 대상 테이블 : 주문(ORDERS)  + 고객(고객명)
+ * 6개월 이상 구매 안한 고객(휴면) : MAX(ORDER_DATE) < ADD_MONTHS(TRUNC(SYSDATE), -6)
+ * VIP 고객 : SUM(TOTAL_AMOUNT) AS lifetime_spent >= 500000  
+ * CTE 절에 휴면 가능성이 있는 VIP 고객 정보 추출 후 Main Query에서 고객테이블과 조인해서 고객명 가져오기
+ * 
+ * cte1.from절: 주문테이블
+ * cte2.group절: 고객아이디로 그룹핑
+ * cte3.having절: vip 고객이면서 휴면 조건이 만족하는 row 추출
+ * cte4.select절: 고객아이디, 가장 최근에 주문한 일자, 고객별 총 구매금액 집계
+ * 
+ * mq1.from절: 고객명을 알기 위해 CTE에서 생성한 테이블과 고객테이블을 고객아이디로 조인
+ * mq2.select절:고객명, 최종구매일자, 총구매금액을 가져와서
+ * mq3.orderby절: 총구매금액 역순으로 조회 
+ */ 
+ 
+ WITH custSpent AS ( -- 휴면 가능성 VIP 고객 테이블 만들기
+    SELECT o.CUSTOMER_ID                           -- 고객ID
+         , MAX(o.ORDER_DATE)   AS last_order_date  -- 최종 구매일자(가장 최근 ORDER_DATE)
+         , SUM(o.TOTAL_AMOUNT) AS lifetime_spent   -- 총 구매 금액 (TOTAL_AMOUNT의 합계)
+      FROM ORDERS o
+     GROUP BY o.CUSTOMER_ID 
+    HAVING SUM(o.TOTAL_AMOUNT) >= 500000 -- 총구매액 500,000원 이상 (VIP 조건)
+       AND MAX(o.ORDER_DATE) < ADD_MONTHS(TRUNC(SYSDATE), -6) -- 휴면 조건
+ )
+SELECT c.CUSTOMER_NAME  -- 고객명
+     , cs.last_order_date  -- 최종 구매일자(가장 최근 ORDER_DATE)
+     , cs.lifetime_spent -- 총 구매 금액 (TOTAL_AMOUNT의 합계)
+  FROM custSpent cs
+  JOIN CUSTOMERS c ON cs.CUSTOMER_ID = c.CUSTOMER_ID   -- 고객명을 가져오기 위해 고객아이디로 두 테이블 조인
+ ORDER BY lifetime_spent DESC -- 총 구매금액 역순
+ ;
+ 
+ 
+
+
+-- Part 3: 고급 분석 및 데이터 변환 고객 등급 분류:  5개 등급으로 분리 
+-- 조회항목 customer_name, total_spent(총 구매금액), customer_tier(등급)
+ /*
+  * 조회항목 customer_name, total_spent(총 구매금액), customer_tier(등급)
+  * 대상 테이블 : 주문(ODERS) + 고객(고객명)  * 
+  * 고객등급 분리 : 구매액(TOTAL_SPENT)이 높은 순서대로(DESC) ntile() 이용해 5개 그룹으로 나눔
+  * 이때 구매총액이 null 인 경우는 NTILE() 할때 NULLS LAST 사용
+  * 
+-- 1.CTE로 주문테이블에서 고객별 총 구매액을 계산하고, 동시에 NTILE 함수를 적용하여 등급(TIER)을 할당
+   cte1.From절 : 고객테이블과 주문 테이블을 고객아이디로 LEFT 조인한다. (구매 이력이 없는 고객도 등급처리하기 위해)
+   cte2.groupby절: 고객아이디로 그룹핑한 후 
+   cte3.select절: 고객아이디와 
+                  구매급액 합계로 고객별 총 구매금액, 
+                  고객등급은 NTILE(5) 구매액(TOTAL_SPENT)이 높은 순서대로(DESC) 5개 그룹으로 나눔.
+                  NULLS LAST 사용해서 구매이력이 없는 고객은 하위순으로 분류
+-- 2. CTE와 CUSTOMERS 테이블을 조인하여 최종 결과를 조회
+    mq1.From절: 고객명을 가져오기 위해 CTE 테이블과 고객 테이블을 고객아이디로 조인
+    mq2.Select절: 고객명과 고객별 총 금액, 고객등급 컬럼을 가져와
+    mq3.OrderBy절: 총 구매금액 역순, null data는 LAST 로 조회 
+*/
+WITH CustomerTiers AS (
+    SELECT c.CUSTOMER_ID                          -- 고객아이디        
+         , SUM(o.TOTAL_AMOUNT) AS TOTAL_SPENT    -- 고객 총 구매금액
+         , NTILE(5) OVER (ORDER BY SUM(o.TOTAL_AMOUNT) DESC NULLS LAST) AS CUSTOMER_TIER  -- 구매액(TOTAL_SPENT)이 높은 순서대로(DESC) 5개 그룹으로 나눔
+      FROM CUSTOMERS c         
+      LEFT JOIN ORDERS o ON c.CUSTOMER_ID = o.CUSTOMER_ID 
+     GROUP BY c.CUSTOMER_ID  
+--     ORDER BY TOTAL_SPENT ASC NULLS FIRST -- 검증용
+)
+SELECT c.CUSTOMER_NAME   -- 고객명
+     , t.TOTAL_SPENT     -- 고객별 총 구매 금액
+     , t.CUSTOMER_TIER   -- 고객 등급
+  FROM CustomerTiers t
+  JOIN CUSTOMERS c ON t.CUSTOMER_ID = c.CUSTOMER_ID 
+ ORDER BY t.TOTAL_SPENT DESC NULLS LAST
+  ;
