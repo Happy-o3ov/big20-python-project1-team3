@@ -222,10 +222,31 @@ ORDER BY REVENUE DESC			-- 매출 높은 순으로 정렬
 -- 10. 고객별 누적 구매액 : 100번 고객만 조회
 
 -- 11. 함께 가장 많이 팔린 도서 조합 : 10개만 조회
+-- 함께 가장 많이 팔린 도서 조합 상위 10개 조회 (Oracle 버전)
+SELECT *
+FROM (
+  SELECT
+    b1.TITLE AS BOOK_1,       -- 첫 번째 책 제목
+    b2.TITLE AS BOOK_2,       -- 두 번째 책 제목
+    COUNT(*) AS PAIR_COUNT    -- 두 책이 함께 팔린 주문 횟수
+  FROM
+    ORDER_ITEMS oi1
+    JOIN ORDER_ITEMS oi2
+      ON oi1.ORDER_ID = oi2.ORDER_ID      -- 같은 주문에서 두 책 연결
+     AND oi1.BOOK_ID < oi2.BOOK_ID        -- 중복 제거 및 자기 자신 제외
+    JOIN BOOKS b1 ON b1.BOOK_ID = oi1.BOOK_ID  -- 첫 번째 책 정보 연결
+    JOIN BOOKS b2 ON b2.BOOK_ID = oi2.BOOK_ID  -- 두 번째 책 정보 연결
+  GROUP BY
+    b1.TITLE, b2.TITLE         -- 책 제목 쌍으로 묶어서 집계
+  ORDER BY
+    COUNT(*) DESC              -- 함께 팔린 횟수가 많은 순으로 정렬
+)
+WHERE ROWNUM <= 10;             -- 상위 10개 조합만 출력
 
 -- 12. 휴면 가능성 VIP 고객
 -- 총구매액 : 500,000 이상, 6개월 이상 구매 안한 고객 조회
 
 -- Part 3: 고급 분석 및 데이터 변환
 -- 13. 고객 등급 분류:  5개 등급으로 분리
+
 
